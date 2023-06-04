@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout"
+      xmlns:custom="http://www.w3.org/1999/xhtml"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="" >
+</head>
+<body>
+<div layout:fragment="content" class="container body-content">
+  <a th:href="@{nhanviens/create}" class="btn btn-primary">Create New Nhân viên</a>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">Mã nhân viên</th>
+      <th scope="col">Tên nhân viên</th>
+      <th scope="col">Giới tính</th>
+      <th scope="col">Nơi sinh</th>
+      <th scope="col">Tên phòng</th>
+      <th scope="col">Lương</th>
+      <th scope="col">Action</th>
+    </tr>
+    </thead>
+    
+    <tbody>
+    <tr th:each="nhanvien : ${listnhanvien}">
+          <td th:text="${nhanvien.id}"></td>
+      <td th:text="${nhanvien.name}"></td>
+      <td>
+        <img height="120" width="150" th:src="@{/images/} + *{nhanvien.phai}" alt="">
+      </td>
+      <td th:text="${nhanvien.noisinh}"></td>
+      <td th:text="${nhanvien.maphong}"></td>
+      <td th:text="${nhanvien.luong}"></td> 
+      <td>
+        <a th:href="@{/nhanviens/edit/{id}(id=${nhanvien.id})}" custom:linkMethod="post" class="btn btn-secondary">Edit</a>
+        <a th:href="@{/nhanviens/delete/{id}(id=${nhanvien.id})}" custom:linkMethod="post" class="btn danger">Delete</a>
+      </td>
+    </tr> 
+    </tbody>
+  </table>
+  <div th:if="${totalPages > 1}">
+			<div class="row col-sm-10">
+				<div class="col-sm-2">Total Rows: [[${totalItems}]]</div>
+				<div class="col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
+						th:if="${currentPage != i}"
+						th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp;
+						&nbsp;
+					</span>
+				</div>
+				<div class="col-sm-1">
+					<a th:if="${currentPage < totalPages}"
+						th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+					<span th:unless="${currentPage < totalPages}">Next</span>
+				</div>
+
+				<div class="col-sm-1">
+					<a th:if="${currentPage < totalPages}"
+						th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+					<span th:unless="${currentPage < totalPages}">Last</span>
+				</div>
+			</div>
+		</div>
+</div>
+</body>
+</html> 
+

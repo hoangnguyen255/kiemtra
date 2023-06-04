@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="_Layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Tạo nhân viên</title>
+</head>
+<body>
+  <div layout:fragment="content" class="container body-content">
+    <form th:action="@{/nhanviens/save}" th:object="${nhanvien}" method="post" class="form" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="name">Tên nhân viên</label>
+            <input class="form-control" type="text" th:field="*{name}" id="name" placeholder="Tên nhân viên">
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+        </div>
+        <div class="form-group">
+            <label for="name">Nơi sinh</label>
+            <input class="form-control" type="text" th:field="*{noisinh}" id="noisinh" placeholder="Nơi sinh">
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('noisinh')}" th:errors="*{noisinh}"></div>
+        </div> 
+        <div class="form-group">
+            <label for="name">Mã phòng</label>
+            <input class="form-control" type="text" th:field="*{maphong}" id="maphong" placeholder="Mã phong">
+            <div class="alert alert-warning" th:if="${#fields.hasErrors('maphong')}" th:errors="*{maphong}"></div>
+        </div> 
+		<!-- <div class="form-group">
+            <label for="name">Mã phòng</label>
+            <select	class="form-control" name="maphong" id="maphong"
+											th:field="*{maphong}">
+											<option th:each="item : ${phongban}"
+											th:value="${item.maphong}" th:text="${item.tenphong}"
+											th:selected="${item.maphong == nhanvien.maphong}">Tên phòng</option>
+										</select>
+        </div> -->
+        <div class="form-group">
+          <label for="image">Phái</label>
+<!--          <input class="form-control" type="text" th:field="*{image}" id="image" placeholder="Product Image">-->
+            <input class="form-control" type="file" id="phai" name="imageProduct" accept="image/png, image.jpeg">
+          <div class="alert alert-warning" th:if="${#fields.hasErrors('phai')}" th:errors="*{phai}"></div>
+        </div>
+        <div class="form-group">
+          <label for="price">Lương</label>
+          <input class="form-control" type="text" th:field="*{luong}" id="luong" placeholder="Lương">
+          <div class="alert alert-warning" th:if="${#fields.hasErrors('luong')}" th:errors="*{luong}"></div>
+        </div>       
+          
+         
+        <input type="submit" class="btn btn-success" value="Sửa nhân viên">
+    </form>
+        </div>
+          
+       
+         
+  
+</body>
+</html>
